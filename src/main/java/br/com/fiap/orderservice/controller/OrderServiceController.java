@@ -12,17 +12,26 @@ import javax.validation.Valid;
 
 @Slf4j
 @RestController
-@RequestMapping("/order-service")
+@RequestMapping(value = "/order", produces = "application/json")
 public class OrderServiceController {
 
-    @Autowired
     private OrderService orderService;
+
+    @Autowired
+    public OrderServiceController(OrderService orderService){
+        this.orderService = orderService;
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<OrderDTO> findById(@PathVariable(value="id") int id){
         System.out.printf("findById %s", id);
         OrderDTO orderDTO = orderService.findById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(orderDTO);
+
+        if(orderDTO == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }else{
+            return ResponseEntity.status(HttpStatus.OK).body(orderDTO);
+        }
     }
 
     @PostMapping
@@ -34,13 +43,18 @@ public class OrderServiceController {
     @PutMapping("/{id}")
     public ResponseEntity update(@PathVariable int id, @RequestBody @Valid OrderDTO orderDTO) {
         orderDTO = orderService.update(id,orderDTO);
-        return ResponseEntity.status(HttpStatus.OK).body("{ \"order\" : \"/order-service/"+orderDTO.getId()+ "\"}");
+
+        if(orderDTO == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }else {
+            return ResponseEntity.status(HttpStatus.OK).body("{ \"order-service\" : \"/order-service/" + orderDTO.getId() + "\"}");
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<OrderDTO> delete(@PathVariable int id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable int id) {
         orderService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/")

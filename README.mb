@@ -2,11 +2,104 @@
 > MICROSERVICES DEVELOPMENT & API <br>
 > Exercício 1 - Spring Boot
 
-Exercício para construir dois microserviços.
 
-## Usage example
+## Endpoints
 
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
+#####POST - localhost:8080/order-service
 
-_For more examples and usage, please refer to the [Wiki][wiki]._
+```
+{
+   "name": "Nome Completo",
+   "email": "nome.sobrenome@dominio.com",
+   "shippingAddress": "Endereço teste",
+   "orderItemDTOS": [
+      {
+         "id": 1,
+         "name": "Nome Item 1",
+         "price": 5
+      },
+      {
+         "id": 2,
+         "name": "Nome Item 2",
+         "price": 10
+      }
+   ],
+   "totalPrice": 15,
+   "paymentDTO": {
+      "id": 1,
+      "idTransaction": "aaaa12-bbbb32-cccc43-dddd56",
+      "cardExpirationDate": "2019-03-23",
+      "cardNumber": 123478964567821,
+      "cardFlag": "VISA"
+   },
+   "orderDate": "2019-03-23",
+   "status": "Ativo"
+}
+```
+
+#####PUT - localhost:8080/order/1
+
+```
+{
+   "name": "Nome Completo",
+   "email": "nome.sobrenome@dominio.com",
+   "shippingAddress": "Endereço teste",
+   "orderItemDTOS": [
+      {
+         "id": 1,
+         "name": "Nome Item 1",
+         "price": 5
+      },
+      {
+         "id": 2,
+         "name": "Nome Item 2",
+         "price": 10
+      }
+   ],
+   "totalPrice": 15,
+   "paymentDTO": {
+      "id": 1,
+      "idTransaction": "aaaa12-bbbb32-cccc43-dddd56",
+      "cardExpirationDate": "2019-03-23",
+      "cardNumber": 123478964567821,
+      "cardFlag": "VISA"
+   },
+   "orderDate": "2019-03-23",
+   "status": "Ativo"
+}
+```
+
+#####GET - localhost:8080/order/1
+
+```
+{
+   "name": "Nome Completo",
+   "email": "nome.sobrenome@dominio.com",
+   "shippingAddress": "Endereço teste",
+   "orderItemDTOS": [
+      {
+         "id": 1,
+         "name": "Nome Item 1",
+         "price": 5
+      },
+      {
+         "id": 2,
+         "name": "Nome Item 2",
+         "price": 10
+      }
+   ],
+   "totalPrice": 15,
+   "paymentDTO": {
+      "id": 1,
+      "idTransaction": "aaaa12-bbbb32-cccc43-dddd56",
+      "cardExpirationDate": "2019-03-23",
+      "cardNumber": 123478964567821,
+      "cardFlag": "VISA"
+   },
+   "orderDate": "2019-03-23",
+   "status": "Ativo"
+}
+```
+
+#####DELETE - localhost:8080/order/1
 

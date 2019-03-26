@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public class OrderRepository {
 
-    private List<OrderDTO> orders = new ArrayList<>();
+    private List<OrderDTO> orders;
 
     public OrderRepository(){
         orders = new ArrayList<>();
@@ -25,18 +25,16 @@ public class OrderRepository {
         return orderDTO;
     }
 
-    public OrderDTO update(int id, OrderDTO orderDTO){
-        OrderDTO orderDb = findById(id);
-        int index = orders.indexOf((orderDb));
+    public OrderDTO update(OrderDTO orderDTO){
+        int index = orders.indexOf((orderDTO));
         orders.set(index,orderDTO);
         return orderDTO;
     }
 
     public OrderDTO delete(int id){
-        OrderDTO orderDb = findById(id);
-        int index = orders.indexOf((orderDb));
-        orders.remove(index);
-        return orderDb;
+        OrderDTO orderDTODb = findById(id);
+        orders.remove(orderDTODb);
+        return orderDTODb;
     }
 
     public List<OrderDTO> getOrders(){ return orders; }
