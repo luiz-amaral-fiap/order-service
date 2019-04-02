@@ -1,5 +1,7 @@
 package br.com.fiap.orderservice.service;
 
+import br.com.fiap.orderservice.exceptionHandler.EmptyResultDataException;
+import br.com.fiap.orderservice.exceptionHandler.InvalidDataException;
 import br.com.fiap.orderservice.model.OrderDTO;
 import br.com.fiap.orderservice.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +20,19 @@ public class OrderService {
     }
 
     public OrderDTO findById(int id) {
-        return orderRepository.findById(id);
+        OrderDTO orderDTODb = orderRepository.findById(id);
+        if(orderDTODb == null){ throw new EmptyResultDataException(); }
+        return orderDTODb;
     }
 
-    public OrderDTO save(OrderDTO orderDTO){ return orderRepository.save(orderDTO); }
+    public OrderDTO save(OrderDTO orderDTO){
+        if(orderDTO.getEmail()==null){ throw new InvalidDataException(); }
+        return orderRepository.save(orderDTO);
+    }
 
     public OrderDTO update(int id, OrderDTO orderDTO){
         OrderDTO orderDTODb = orderRepository.findById(id);
-
-        if(orderDTODb == null){
-            return null;
-        }
-
+        if(orderDTO.getEmail()==null){ throw new InvalidDataException(); }
         orderDTO.setId(orderDTODb.getId());
         return orderRepository.update(orderDTO);
     }
