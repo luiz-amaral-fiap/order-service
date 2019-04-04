@@ -21,13 +21,13 @@ public class OrderServiceTest {
     private OrderService orderService;
 
     @Before
-    public void setUpMock() {
+    public void initMock() {
         MockitoAnnotations.initMocks(this);
         Mockito.when(orderService.save(any(OrderDTO.class))).thenReturn(new OrderDTO());
     }
 
     @Test
-    public void lancamentoContabilServiceTest() {
+    public void saveOrderServiceTest() {
         Assert.assertNotNull(orderService.save(new OrderDTO()));
     }
 }

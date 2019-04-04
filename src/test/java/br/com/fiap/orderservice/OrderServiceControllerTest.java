@@ -22,17 +22,17 @@ public class OrderServiceControllerTest {
     private MockMvc mockMvc;
 
     @Before
-    public void setup() {
+    public void initMock() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
     @Test
-    public void test_ok() throws Exception {
+    public void testOrderOk() throws Exception {
         mockMvc.perform(get("/order-service/")).andExpect(status().isOk());
     }
 
     @Test
-    public void testNotFound() throws Exception {
+    public void testOrderNotFound() throws Exception {
         mockMvc.perform(get("/order-service/9999")).andExpect(status().isNotFound());
     }
 }
